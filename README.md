@@ -3,7 +3,6 @@
 This is not a final solution and as it it said, it is not optimal also.
 
 - Internet Connection is "hacky"
-- Security Level is low (If I could call it even a level)
 - Users are not separated (at least to groups)
 
 ## Usage

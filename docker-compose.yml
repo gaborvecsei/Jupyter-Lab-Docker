@@ -12,8 +12,6 @@ services:
       - /jupyter_lab_data:/home/jovyan/work
     ports:
       - 8888:8888
-      - 1234:1234
     environment:
       - GRANT_SUDO=yes
-    tty:  false
     network_mode: host

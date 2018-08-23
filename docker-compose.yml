@@ -9,8 +9,12 @@ services:
     image: jupyter_lab_gabor
     container_name: gabor_lab 
     volumes:
-      - /jupyter_lab_data:/home/jovyan/work
+      - /jupyter_lab_data:/work
+      - ./start.sh:/start.sh
     ports:
-      - 8888:8888
+      - 8889:8889
     restart: always
     network_mode: host
+    entrypoint:
+      - /bin/bash
+      - /start.sh

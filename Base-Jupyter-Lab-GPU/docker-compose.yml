@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  base_jupyter_lab_gpu_service:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      network: host
+    image: base_jupyter_lab_gpu
+    container_name: base_jupyter_lab_gpu_container
+    ports:
+      - 8889:8889
+    volumes:
+      - ./start.sh:/start.sh
+    entrypoint:
+      - /bin/bash
+      - /start.sh
+    network_mode: host

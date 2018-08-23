@@ -1,34 +1,29 @@
-FROM jupyter/minimal-notebook
+FROM base_jupyter_lab_gpu 
+
+# Build time args
+ARG PROXY_IP="localhost"
+ARG PROXY_PORT="8879"
 
 USER root
 
-# Use Jupyter Lab
-ENV JUPYTER_ENABLE_LAB=yes
-
 # Setup Proxy
-ENV http_proxy="http://localhost:8879"
-ENV https_proxy="https://localhost:8879"
-RUN git config --global http.proxy http://localhost:8879
+ENV http_proxy="http://${PROXY_IP}:${PROXY_PORT}"
+ENV https_proxy="https://${PROXY_IP}:${PROXY_PORT}"
+RUN git config --global http.proxy ${http_proxy}
 
 ADD conf_files /conf_files
 
 # Install required apt & python packages
-RUN apt-get update && apt-get install -y vim tmux curl \
-                      mongodb software-properties-common
+RUN apt-get update && apt-get install -y vim \
+                                         tmux \
+                                         mongodb
 ## Install FFMPEG
-RUN add-apt-repository ppa:mc3man/trusty-media
-RUN apt-get update  && apt-get install -y ffmpeg
-## Install Python packages
-RUN pip install -r /conf_files/requirements.txt
+RUN apt-get install -y ffmpeg
 
-# Install additional jupyter kernels
-## R
-RUN conda install -c r r-irkernel -y
+## Install Python packages
+RUN pip3 install -r /conf_files/requirements.txt
 
 # Modify jupyter lab config
-RUN cat /conf_files/jupyter_notebook_config.py >> /home/jovyan/.jupyter/jupyter_notebook_config.py
-
-# Clone Redvine to work folder
-WORKDIR /home/jovyan/work
-RUN git clone http://github.conti.de/ADAS-Machine-Learning/redvine.git 
+# RUN cat /conf_files/jupyter_notebook_config.py >> /root/.jupyter/jupyter_notebook_config.py
+ADD conf_files/jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
 

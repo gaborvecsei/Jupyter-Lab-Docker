@@ -4,7 +4,7 @@ services:
   jupyter_lab_service:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.with_proxy
       network: host
     image: jupyter_lab_gabor
     container_name: gabor_lab 

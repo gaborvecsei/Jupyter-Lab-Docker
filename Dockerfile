@@ -16,14 +16,19 @@ ADD conf_files /conf_files
 # Install required apt & python packages
 RUN apt-get update && apt-get install -y vim \
                                          tmux \
-                                         mongodb
+                                         mongodb \
+                                         nodejs \
+                                         npm
 ## Install FFMPEG
 RUN apt-get install -y ffmpeg
 
 ## Install Python packages
 RUN pip3 install -r /conf_files/requirements.txt
 
+# Install Jupyter notebook widgets
+RUN npm config set proxy http://localhost:8879
+RUN jupyter labextension install @jupyter-widgets/jupyterlab-manager
+
 # Modify jupyter lab config
-# RUN cat /conf_files/jupyter_notebook_config.py >> /root/.jupyter/jupyter_notebook_config.py
 ADD conf_files/jupyter_notebook_config.py /root/.jupyter/jupyter_notebook_config.py
 

@@ -2,16 +2,39 @@
 
 ## Setup
 
+### Install Docker
+
 - You'll need `docker` and `nvidia-docker2`
 - Edit `/etc/docker/daemon.json`
     - Add `"default-runtime": "nvidia"` as first level entry inside the json file
-- Build the base image
-    - `$ cd Base-Jupyter-Lab-GPU`
-    - `$ sudo docker-compose build`
-- Build the actual image
-    - Go to the root folder
-    - `$ sudo docker-compose build`
-    - Run it: `$ sudo docker-compose up -d`
+
+### Build Base Image
+
+- With Proxy
+    - Edit `dockerfile: Dockerfile` --> `dockerfile: Dockerfile.with_proxy`
+    - Add `network_mode: host` as child of the service, and `network: host` as child of `build:`
+- Without Proxy
+    - Be sure to have `dockerfile: Dockerfile` and not `dockerfile: Dockerfile.with_proxy`
+    - Also remove `network_mode: host` and `network: host` entries
+
+```
+$ cd Base-Jupyter-Lab-GPU
+$ sudo docker-compose build
+```
+
+### Build Actual Image
+
+- With Proxy
+    - Add `network_mode: host` as child of the service, and `network: host` as child of `build:`
+- Without Proxy
+    - Remove `network_mode: host` and `network: host` entries
+
+- Go to the root folder and run the following:
+
+```
+$ sudo docker-compose build
+$ sudo docker-compose up
+```
 
 ## Usage
 

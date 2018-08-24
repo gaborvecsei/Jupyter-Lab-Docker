@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      network: host
+#      network: host
     image: jupyter_lab_gabor
     container_name: gabor_lab 
     volumes:
@@ -17,6 +17,6 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
     restart: always
-    network_mode: host
+#    network_mode: host
     command:
       - /start.sh

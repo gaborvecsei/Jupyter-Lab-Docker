@@ -4,8 +4,8 @@ services:
   base_jupyter_lab_gpu_service:
     build:
       context: .
-      dockerfile: Dockerfile.with_proxy
-      network: host
+      dockerfile: Dockerfile
+#      network: host
     image: base_jupyter_lab_gpu
     container_name: base_jupyter_lab_gpu_container
     ports:
@@ -15,4 +15,5 @@ services:
     entrypoint:
       - /bin/bash
       - /start.sh
-    network_mode: host
+#    network_mode: host
+

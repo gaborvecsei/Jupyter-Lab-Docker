@@ -18,6 +18,5 @@ services:
       - NVIDIA_VISIBLE_DEVICES=all
     restart: always
     network_mode: host
-    entrypoint:
-      - /bin/bash
+    command:
       - /start.sh

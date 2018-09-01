@@ -2,7 +2,6 @@ FROM nvidia/cuda:9.0-devel-ubuntu16.04
 
 USER root
 
-# Install basic packages & python related stuff
 RUN apt-get update && apt-get install -y \
         cmake \
         git \
@@ -21,7 +20,6 @@ RUN apt-get update && apt-get install -y \
         nodejs \
         ffmpeg
 
-# Install tensorflow dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
         build-essential \
         cuda-command-line-tools-9-0 \
@@ -47,6 +45,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-# Install Jupyter Lab
 RUN pip3 install jupyterlab
-

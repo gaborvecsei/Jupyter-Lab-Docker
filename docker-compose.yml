@@ -6,8 +6,8 @@ services:
       context: .
       dockerfile: Dockerfile
 #      network: host
-    image: jupyter_lab_gabor
-    container_name: gabor_lab 
+    image: jupyter_lab
+    container_name: jupyter_lab_container
     volumes:
       - /jupyter_lab_data:/work
       - ./start.sh:/start.sh
@@ -17,6 +17,5 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=all
     restart: always
-#    network_mode: host
     command:
       - /start.sh

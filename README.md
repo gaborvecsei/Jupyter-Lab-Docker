@@ -1,6 +1,11 @@
 # Jupyter Lab Docker Container
 
+Simple docker container which has a Jupyter Lab and the necessary packages/tools to work with GPUs
+
 ## Setup
+
+For your own needs edit the [requirements.txt](conf_files/requirements.txt) file and also the
+[Jupyter Notebook/Lab config file](conf_files/jupyter_notebook_config.py)
 
 ### Install Docker
 
@@ -10,48 +15,20 @@
 
 ### Build Base Image
 
-- With Proxy
-    - Edit `dockerfile: Dockerfile` --> `dockerfile: Dockerfile.with_proxy`
-    - Add `network_mode: host` as child of the service, and `network: host` as child of `build:`
-- Without Proxy
-    - Be sure to have `dockerfile: Dockerfile` and not `dockerfile: Dockerfile.with_proxy`
-    - Also remove `network_mode: host` and `network: host` entries
+- At the base image folder:
 
 ```
-$ cd Base-Jupyter-Lab-GPU
 $ sudo docker-compose build
 ```
 
-### Build Actual Image
+### Build Actual Image & Run it
 
-- With Proxy
-    - Add `network_mode: host` as child of the service, and `network: host` as child of `build:`
-- Without Proxy
-    - Remove `network_mode: host` and `network: host` entries
-
-- Go to the root folder and run the following:
+- At the root folder:
 
 ```
 $ sudo docker-compose build
 $ sudo docker-compose up
 ```
 
-## Usage
-
-If you would like to install a python module or an apt package, please report it, as the Dockerfile needs to be modified. Installing it directly inside the container is only a temporary solution.
-
-### Work 
-
-1. Create your own `work folder`
-2. Create a personal copy (or clone it) of the `redvine` folder into your own folder (`cp -R redvine <YOUR_FOLDER>`)
-3. Work inside your own folder & Enjoy
-
-## Supported Languages
-
-- Python 3.6
-- R
-
-## Problems
-
-- Inside `docker-compose.yml` `network_mode: host` is problematic
-    - If you are not using any proxy please remove this key in the file
+- Once it is started to you can reach Jupyter Lab: `localhost:88879`
+- Tensorboard works also on `localhost:6006`

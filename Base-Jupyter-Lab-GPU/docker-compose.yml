@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-      network: host
+#      network: host
     image: base_jupyter_lab_gpu
     container_name: base_jupyter_lab_gpu_container
     ports:
@@ -15,4 +15,5 @@ services:
     entrypoint:
       - /bin/bash
       - /start.sh
-    network_mode: host
+#    network_mode: host
+

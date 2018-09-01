@@ -2,6 +2,14 @@ FROM nvidia/cuda:9.0-devel-ubuntu16.04
 
 USER root
 
+# Build time args
+ARG PROXY_IP="localhost"
+ARG PROXY_PORT="8879"
+
+# Setup Proxy
+ENV http_proxy="http://${PROXY_IP}:${PROXY_PORT}"
+ENV https_proxy="https://${PROXY_IP}:${PROXY_PORT}"
+
 # Install basic packages & python related stuff
 RUN apt-get update && apt-get install -y \
         cmake \
@@ -20,6 +28,9 @@ RUN apt-get update && apt-get install -y \
         libboost-all-dev \
         nodejs \
         ffmpeg
+
+# Setup proxy for git
+RUN git config --global http.proxy ${http_proxy}
 
 # Install tensorflow dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -48,5 +59,5 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     rm -rf /var/lib/apt/lists/*
 
 # Install Jupyter Lab
-RUN pip3 install jupyterlab
+RUN pip3 install --proxy ${http_proxy} jupyterlab
 

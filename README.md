@@ -30,5 +30,5 @@ $ sudo docker-compose build
 $ sudo docker-compose up
 ```
 
-- Once it is started to you can reach Jupyter Lab: `localhost:88879`
+- Once it is started to you can reach Jupyter Lab: `localhost:8889`
 - Tensorboard works also on `localhost:6006`
